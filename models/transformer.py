@@ -2,6 +2,9 @@ import torch
 import torch.nn.functional as F
 from x_transformers.autoregressive_wrapper import AutoregressiveWrapper, top_k, top_p
 from x_transformers import TransformerWrapper, Decoder
+import torch.nn as nn
+
+
 
 
 class CustomARWrapper(AutoregressiveWrapper):
@@ -23,8 +26,11 @@ class CustomARWrapper(AutoregressiveWrapper):
         out = start_tokens
         mask = kwargs.pop('mask', None)
         if mask is None:
-            mask = torch.full_like(out, True, dtype=torch.bool, device=out.device)
+            # mask = torch.full_like(out, True, dtype=torch.bool, device=out.device)
+            mask = torch.full_like(out, 1, dtype=torch.int, device=out.device)
+            mask = mask.bool()
 
+            
         for _ in range(seq_len):
             x = out[:, -self.max_seq_len:]
             mask = mask[:, -self.max_seq_len:]
@@ -42,6 +48,8 @@ class CustomARWrapper(AutoregressiveWrapper):
 
             if eos_token is not None and (torch.cumsum(out == eos_token, 1)[:, -1] >= 1).all():
                 break
+    
+
 
         out = out[:, t:]
 
@@ -50,6 +58,8 @@ class CustomARWrapper(AutoregressiveWrapper):
 
         self.net.train(was_training)
         return out
+    
+
 
 
 def get_decoder(args):

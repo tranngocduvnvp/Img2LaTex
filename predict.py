@@ -5,7 +5,7 @@ from img2tex.resizeimg4test import resize4test, resize4api
 
 model = img2tex.LatexOCR()
 
-f = "C:\work\FastAPI\datasets\\test_image\ins_2753.png"
+f = r"C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\sample\math1.jpg"
 
 
 # img = Image.open(f)

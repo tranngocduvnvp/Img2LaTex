@@ -23,11 +23,11 @@ from transformers import PreTrainedTokenizerFast
 from timm.models.resnetv2 import ResNetV2
 from timm.models.layers import StdConv2dSame
 
-from img2tex.dataset.latex2png import tex2pil
+# from img2tex.dataset.latex2png import tex2pil
 from img2tex.models import get_model
 from img2tex.utils import *
-from img2tex.model.checkpoints.get_latest_checkpoint import download_checkpoints
-import bentoml
+# from img2tex.model.checkpoints.get_latest_checkpoint import download_checkpoints
+# import bentoml
 
 
 def minmax_size(img, max_dimensions: Tuple[int, int] = None, min_dimensions: Tuple[int, int] = None):
@@ -85,9 +85,10 @@ class LatexOCR:
             arguments (Union[Namespace, Munch], optional): Special model parameters. Defaults to None.
         """
         if arguments is None:
-            arguments = Munch({'config': 'settings/config.yaml', 'checkpoint': 'C:\work\FastAPI\MathTex\img2tex\model\checkpoints\mixed_e07_step1871.pth', 'no_cuda': True, 'no_resize': True})
+            arguments = Munch({'config': 'settings/config.yaml', 'checkpoint': r'C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\model\checkpoints\checkpoint.pth', 'no_cuda': True, 'no_resize': True})
         logging.getLogger().setLevel(logging.FATAL)
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+        print(os.getcwd())
         with open(arguments.config, 'r') as f:
             params = yaml.load(f, Loader=yaml.FullLoader)
         self.args = parse_args(Munch(params))
