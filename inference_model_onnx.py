@@ -82,6 +82,7 @@ def generate(image, start_tokens, seq_len=256, eos_token=None, temperature=1., f
             x = out[:, -max_seq_len:]
             mask = mask[:, -max_seq_len:]
             
+            
             ort_decoder_inputs = {"x": x, "mask": mask, "context": context}
 
             # logits = net(x, mask=mask, **kwargs)[:, -1, :]
@@ -193,14 +194,14 @@ if __name__ == "__main__":
     
     #========== Create runtime ONNX ============
 
-    ort_encoder_session = onnxruntime.InferenceSession("encoder_onnx.onnx", providers=["CPUExecutionProvider"])
-    ort_decoder_session = onnxruntime.InferenceSession("decoder_onnx.onnx", providers=["CPUExecutionProvider"])
+    ort_encoder_session = onnxruntime.InferenceSession("/home/bdi/Mammo_FDA/TensorRT/LatexOCR/triton/tutorials/Conceptual_Guide/LatexOCR_Triton/model_repository/encoder/1/model.onnx", providers=["CPUExecutionProvider"])
+    ort_decoder_session = onnxruntime.InferenceSession("/home/bdi/Mammo_FDA/TensorRT/LatexOCR/triton/tutorials/Conceptual_Guide/LatexOCR_Triton/model_repository/decoder/1/model.onnx", providers=["CPUExecutionProvider"])
 
 
     #======== initialization input ==================
     # dumpy = torch.rand(3,1,64,64)
     # dumpy = np.random.rand(3,1,64,64).astype(np.float32)
-    img = resize4test(r"C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\sample\math1.jpg", scale=1.0)
+    img = resize4test(r"/home/bdi/Mammo_FDA/TensorRT/LatexOCR/triton/tutorials/Conceptual_Guide/LatexOCR_Triton/img/math1.jpg", scale=1.0)
     dumpy = np.array(img.convert('RGB'))
     dumpy = np.expand_dims(np.transpose(test_transform(image=dumpy)['image'][:,:,:1], (2,0,1)), axis=0)
     print(dumpy.shape, dumpy.dtype)

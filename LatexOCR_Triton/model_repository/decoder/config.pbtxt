@@ -1,0 +1,31 @@
+name: "decoder"
+backend: "onnxruntime"
+max_batch_size : 64
+input [
+  {
+    name: "x"
+    data_type: TYPE_INT64
+    dims: [-1]
+  }
+]
+input [
+  {
+    name: "mask"
+    data_type: TYPE_BOOL
+    dims: [-1]
+  }
+]
+input [
+  {
+    name: "context"
+    data_type: TYPE_FP32
+    dims: [-1, 256]
+  }
+]
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32
+    dims: [-1,8000]
+  }
+]

@@ -65,7 +65,7 @@ def div32(img):
 # @in_model_path()        
 def get_model4_onnx(arguments=None):
     if arguments is None:
-        arguments = Munch({'config': r'C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\model\settings/config.yaml', 'checkpoint': r'C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\model\checkpoints\checkpoint.pth', 'no_cuda': True, 'no_resize': True})
+        arguments = Munch({'config': r'/home/bdi/Mammo_FDA/TensorRT/LatexOCR/img2tex/model/settings/config.yaml', 'checkpoint': r'/home/bdi/Mammo_FDA/TensorRT/LatexOCR/img2tex/model/checkpoints/checkpoint.pth', 'no_cuda': True, 'no_resize': True})
     logging.getLogger().setLevel(logging.FATAL)
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     with open(arguments.config, 'r') as f:
@@ -96,7 +96,7 @@ def export_encoder2onnx(encoder, input_example):
         input_names=["input"], 
         output_names=["output"],
         dynamic_axes={
-            "input":{0:"batch_size", 2:"height", 3:"width"}, 
+            "input":{0:"batch_size", 2:"height", 3:"width"}, #[batch, 1, h, w]
             "output":{0:"batch_size", 1:"length"}
             },
         do_constant_folding=False,
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     out_put = encoder(dumpy_input)
     print(out_put)
     
-    # export_encoder2onnx(encoder, dumpy_input)
+    export_encoder2onnx(encoder, dumpy_input)
     
     #======= Start runtime model ==========
     ort_session = onnxruntime.InferenceSession("encoder_onnx.onnx", providers=["CPUExecutionProvider"])

@@ -1,0 +1,30 @@
+name: "encoder"
+backend: "onnxruntime"
+max_batch_size : 64
+input [
+  {
+    name: "input"
+    data_type: TYPE_FP32
+    dims: [1, -1, -1 ]
+  }
+]
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32
+    dims: [-1, -1]
+  }
+]
+
+optimization {
+  graph : {
+    level : 1
+  }
+  execution_accelerators {
+      gpu_execution_accelerator : [ {
+        name : "tensorrt",
+        parameters { key: "precision_mode" value: "FP32" },
+        parameters { key: "max_workspace_size_bytes" value: "1073741824" }
+      }]
+    }
+}

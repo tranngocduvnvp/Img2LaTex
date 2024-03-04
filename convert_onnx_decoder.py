@@ -63,7 +63,7 @@ def div32(img):
 # @in_model_path()        
 def get_model4_onnx(arguments=None):
     if arguments is None:
-        arguments = Munch({'config': r'C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\model\settings/config.yaml', 'checkpoint': r'C:\Users\dutn\Documents\LatexOCR\LatexOCR\img2tex\model\checkpoints\checkpoint.pth', 'no_cuda': True, 'no_resize': True})
+        arguments = Munch({'config': r'/home/bdi/Mammo_FDA/TensorRT/LatexOCR/img2tex/model/settings/config.yaml', 'checkpoint': r'/home/bdi/Mammo_FDA/TensorRT/LatexOCR/img2tex/model/checkpoints/checkpoint.pth', 'no_cuda': True, 'no_resize': True})
     logging.getLogger().setLevel(logging.FATAL)
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     with open(arguments.config, 'r') as f:
@@ -128,8 +128,6 @@ def export_decoder2onnx(decoder_net, x, mask, context):
 
 if __name__ == "__main__":
     
-    
- 
     decoder_net = Decoder_onnx().eval()
     
     
@@ -150,7 +148,7 @@ if __name__ == "__main__":
     logits = decoder_net(x, mask=mask, context = context)
     print(logits.shape)
     print("=================================================")
-    # export_decoder2onnx(decoder_net, x, mask, context)
+    export_decoder2onnx(decoder_net, x, mask, context)
 
     #======= Start runtime model ==========
     ort_session = onnxruntime.InferenceSession("decoder_onnx.onnx", providers=["CPUExecutionProvider"])

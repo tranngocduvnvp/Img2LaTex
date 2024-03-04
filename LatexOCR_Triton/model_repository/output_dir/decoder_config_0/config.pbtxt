@@ -1,0 +1,31 @@
+name: "decoder"
+max_batch_size: 1
+input {
+  name: "x"
+  data_type: TYPE_INT64
+  dims: -1
+}
+input {
+  name: "mask"
+  data_type: TYPE_BOOL
+  dims: -1
+}
+input {
+  name: "context"
+  data_type: TYPE_FP32
+  dims: -1
+  dims: 256
+}
+output {
+  name: "output"
+  data_type: TYPE_FP32
+  dims: -1
+  dims: 8000
+}
+instance_group {
+  count: 1
+  kind: KIND_GPU
+}
+dynamic_batching {
+}
+backend: "onnxruntime"
