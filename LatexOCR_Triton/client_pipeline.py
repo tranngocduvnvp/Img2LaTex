@@ -2,7 +2,7 @@ from utils import *
 import tritonclient.http as httpclient
 
 
-img = resize4test(r"/home/bdi/Mammo_FDA/TensorRT/LatexOCR/triton/tutorials/Conceptual_Guide/LatexOCR_Triton/img/sample4.jpg", scale=1.0)
+img = resize4test(r"/home/bdi/Mammo_FDA/TensorRT/LatexOCR/img2tex/LatexOCR_Triton/img/math1.jpg", scale=1.0)
 image = np.array(img.convert('RGB'))
 image = np.expand_dims(np.transpose(test_transform(image=image)['image'][:,:,:1], (2,0,1)), axis=0)
 
