@@ -16,15 +16,13 @@ output [
   }
 ]
 
-optimization {
-  graph : {
-    level : 1
-  }
-  execution_accelerators {
-      gpu_execution_accelerator : [ {
-        name : "tensorrt",
-        parameters { key: "precision_mode" value: "FP32" },
-        parameters { key: "max_workspace_size_bytes" value: "1073741824" }
-      }]
-    }
+dynamic_batching {
 }
+
+instance_group [
+  {
+    count: 2
+    kind: KIND_GPU
+    gpus: [ 0]
+  }
+]
