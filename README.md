@@ -8,7 +8,7 @@ This repository contains the code of the MathtexViOCR model. The model is fine-t
 ```bash
 mkdir MathTex
 git clone https://github.com/tranngocduvnvp/Img2LaTex/tree/main
-# rename foler
+#rename foler
 mv /Img2LaTex /img2tex
 # install packages
 cd /img2tex
