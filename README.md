@@ -4,6 +4,10 @@ This repository contains the code of the MathtexViOCR model. The model is fine-t
 ![Input](./LatexOCR_Triton/img/math1.jpg)
 ![Output](./LatexOCR_Triton/img/image-2.png)
 
+# Install
+```bash
+pip install -r requirements.txt
+```
 # Features
 
 ## Training mode
